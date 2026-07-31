@@ -1,0 +1,19 @@
+# Database files
+*.db
+*.db-journal
+*.sqlite
+app.db
+test_*.db
+
+# Command history files
+.cli_history
+
+# Binaries and compiled outputs
+/bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+main

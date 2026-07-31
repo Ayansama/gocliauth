@@ -3,6 +3,7 @@ module go-cli-auth
 go 1.26.2
 
 require (
+	github.com/chzyer/readline v1.5.1
 	github.com/pquerna/otp v1.5.0
 	golang.org/x/crypto v0.54.0
 	modernc.org/sqlite v1.55.0
