@@ -1,0 +1,18 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: go_cli_auth
+    stdin_open: true # Keeps STDIN open for interactive shell (-i)
+    tty: true # Allocates a pseudo-TTY (-t)
+    environment:
+      - DB_PATH=/app/data/app.db
+      - LOCKOUT_THRESHOLD=5
+      - LOCKOUT_DURATION_MINS=15
+      - SESSION_TIMEOUT_MINS=15
+    volumes:
+      - sqlite_data:/app/data
+
+volumes:
+  sqlite_data:
