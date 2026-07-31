@@ -89,7 +89,7 @@ go-cli-auth/
 
 **Local run:**
 
-- Go 1.21 or later (`go version`)
+- Go 1.26 or later (`go version`),
 
 **Docker run:**
 
@@ -113,15 +113,11 @@ go mod download
 go run ./cmd/app/main.go
 ```
 
-### Option B — Docker Compose (recommended for persistence)
+### Option B — Docker Compose (Recommended)
 
-```bash
-# Build and start the interactive container
-docker compose up --build
-
-# Re-attach to a running container
-docker attach go_cli_auth
-```
+````bash
+# Build and run the interactive CLI container
+docker compose run --rm app
 
 The SQLite database is stored in a named Docker volume (`sqlite_data`) and survives container restarts.
 
@@ -130,7 +126,7 @@ The SQLite database is stored in a named Docker volume (`sqlite_data`) and survi
 ```bash
 go build -o auth-cli ./cmd/app/main.go
 ./auth-cli
-```
+````
 
 ---
 
@@ -319,10 +315,9 @@ CREATE TABLE IF NOT EXISTS sessions (
 ## Running Tests
 
 ```bash
-go test ./...
-```
+go test -v ./...
 
-Tests live in `internal/auth/auth_test.go` and `internal/session/session_test.go`. They use an in-memory SQLite instance (`:memory:`) so no fixture files are needed.
+Tests live in internal/auth/auth_test.go and internal/session/session_test.go. They create temporary isolated SQLite database files during test execution and automatically clean them up upon completion.
 
 ---
 
@@ -343,3 +338,4 @@ Tests live in `internal/auth/auth_test.go` and `internal/session/session_test.go
 - Account lockout is time-based: the lockout window resets automatically; no admin action needed.
 - TOTP codes are validated with `pquerna/otp`, which enforces the 30-second time window per RFC 6238.
 - The `DB_PATH` file should be kept outside web-accessible directories in production.
+```
